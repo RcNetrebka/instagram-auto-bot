@@ -1,0 +1,26 @@
+name: Instagram Auto Poster
+
+on:
+  schedule:
+    * * *"   # 08h horário BR (-03)
+    - cron: "0 22 * * *"   # 19h horário BR (-03)
+  workflow_dispatch:
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v3
+
+      - name: Instalar dependências
+        run: pip install requests beautifulsoup4
+
+      - name: Rodar scraper
+        run: python scraper.py
+
+      - name: Rodar bot de postagem
+        env:
+          INSTAGRAM_TOKEN: ${{ secrets.INSTAGRAM_TOKEN }}
+          INSTAGRAM_BUSINESS_ID: ${{ secrets.INSTAGRAM_BUSINESS_ID }}
+        run: python bot.py
