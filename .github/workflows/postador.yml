@@ -1,26 +1,32 @@
-name: Instagram Auto Poster
+name: Postador Instagram SneakersRN
 
 on:
   schedule:
-    * * *"   # 08h horário BR (-03)
-    - cron: "0 22 * * *"   # 19h horário BR (-03)
+    - cron: "0 11 * * *"   # 08:00 (Brasil GMT-3)
+    - cron: "0 22 * * *"   # 19:00 (Brasil GMT-3)
   workflow_dispatch:
 
 jobs:
-  run-bot:
+  postar:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Baixar repositório
-        uses: actions/checkout@v3
+    - name: Baixar repositório
+      uses: actions/checkout@v3
 
-      - name: Instalar dependências
-        run: pip install requests beautifulsoup4
+    - name: Configurar Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
 
-      - name: Rodar scraper
-        run: python scraper.py
+    - name: Instalar dependências
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests beautifulsoup4
 
-      - name: Rodar bot de postagem
-        env:
-          INSTAGRAM_TOKEN: ${{ secrets.INSTAGRAM_TOKEN }}
-          INSTAGRAM_BUSINESS_ID: ${{ secrets.INSTAGRAM_BUSINESS_ID }}
-        run: python bot.py
+    - name: Executar bot
+      env:
+        INSTAGRAM_TOKEN: ${{ secrets.INSTAGRAM_TOKEN }}
+        INSTAGRAM_BUSINESS_ID: ${{ secrets.INSTAGRAM_BUSINESS_ID }}
+      run: |
+        python bot.py
