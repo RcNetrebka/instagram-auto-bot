@@ -1,44 +1,24 @@
-# BOT AUTOMÁTICO – Instagram @autocuidadoparavc
+# 🤖 Bot Automático Instagram – SneakersRN.OFC
 
-✅ Posta 2 produtos por dia (08h e 19h)  
-✅ Gera legenda automática para vendas  
-✅ Busca produtos da loja CollShp  
-✅ Roda 100% na nuvem (GitHub Actions)  
-✅ Sem necessidade de instalar nada no computador
+Este repositório contém um bot totalmente automatizado que publica **2 vezes por dia** no Instagram da loja **SneakersRN.OFC**, usando uma lista de produtos configurada no arquivo `products.json`.
 
----
-
-## COMO FUNCIONA
-
-1. scraper.py → coleta produtos da loja
-2. bot.py → gera legenda e posta no Instagram
-3. postador.yml → agenda as execuções automáticas
-4. products.json → banco de dados dos produtos
+O bot roda através do **GitHub Actions**, o que significa que:
+✅ Não precisa rodar nada no PC  
+✅ Funciona mesmo com PC travado  
+✅ Executa sempre nos horários programados  
 
 ---
 
-## COMO CONFIGURAR AS CHAVES DO INSTAGRAM
+## 📌 COMO FUNCIONA
 
-Ir em:
-`Settings → Secrets → Actions → New Repository Secret`
+### ✅ 1. O arquivo `products.json`
+Este arquivo contém todos os produtos que o bot pode postar.
 
-Criar dois segredos:
+Cada item segue este formato:
 
-- **INSTAGRAM_TOKEN**
-- **INSTAGRAM_BUSINESS_ID**
-
-O bot usa esses dados para realizar a postagem automática.
-
----
-
-## HORÁRIOS DAS POSTAGENS
-
-- Todo dia às 08h
-- Todo dia às 19h
-
-Configuração feita em `.github/workflows/postador.yml`
-
----
-
-## PRONTO!
-Assim que os segredos forem adicionados, o bot começa a postar sozinho.
+```json
+{
+  "title": "Nome do Produto",
+  "link": "https://shopee.com.br/...",
+  "image": "URL da Imagem"
+}
