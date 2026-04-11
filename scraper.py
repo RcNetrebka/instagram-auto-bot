@@ -1,8 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-import json
-
-STORE_URL = "https://collshp.com/liliaautocuidado?view=storefront"
+importruannsneakers?view=storefront"import json
 
 def scrape_products():
     response = requests.get(STORE_URL, timeout=10)
@@ -10,15 +8,19 @@ def scrape_products():
 
     products = []
 
+    # Selecionar todos os produtos do storefront Collshp
     items = soup.select("a[href*='product']")
     for item in items:
         title = item.get_text(strip=True)
         link = item["href"]
+
+        # Corrige link incompleto
         if not link.startswith("http"):
             link = "https://collshp.com" + link
 
+        # Pega imagem do produto, quando disponível
         img_tag = item.find("img")
-        img = img_tag["src"] if img_tag else None
+        img = img_tag["src"] if img_tag else ""
 
         products.append({
             "title": title,
@@ -26,6 +28,7 @@ def scrape_products():
             "image": img
         })
 
+    # Salvar arquivo
     with open("products.json", "w", encoding="utf-8") as f:
         json.dump(products, f, indent=4, ensure_ascii=False)
 
@@ -33,3 +36,5 @@ def scrape_products():
 
 if __name__ == "__main__":
     scrape_products()
+
+# ✅ Loja nova SneakersRN
